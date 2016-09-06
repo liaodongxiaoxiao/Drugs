@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.ldxx.drug.ui.activity.SplashActivity">
+    <TextView
+        android:id="@+id/app_detail"
+        android:text="@string/str_app_detail"
+        android:textColor="@color/colorAccent"
+        android:textSize="36sp"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/data_from"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/data_from"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/str_data_from"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

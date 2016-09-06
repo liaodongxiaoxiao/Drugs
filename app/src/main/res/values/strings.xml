@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">寻药</string>
+
+    <string name="loading_more">正在加载更多东西</string>
+    <string name="str_app_detail">药品大全</string>
+    <string name="str_data_from">数据来自天狗网</string>
+</resources>
