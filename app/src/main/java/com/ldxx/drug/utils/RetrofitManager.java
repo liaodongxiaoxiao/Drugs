@@ -2,9 +2,16 @@ package com.ldxx.drug.utils;
 
 import android.content.Context;
 
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.ldxx.drug.BuildConfig;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -28,12 +35,22 @@ public class RetrofitManager {
 
     public RetrofitManager(Context context) {
         initOkHttpClient(context);
+        // Creates the json object which will manage the information received
+        GsonBuilder builder = new GsonBuilder();
+
+        // Register an adapter to manage the date types as long values
+        builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+            public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                return new Date(json.getAsJsonPrimitive().getAsLong());
+            }
+        });
+
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_HOST)
                 .client(mOkHttpClient)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(builder.create()))
                 .build();
     }
 
@@ -61,8 +78,8 @@ public class RetrofitManager {
                                 }
                             })
                             .retryOnConnectionFailure(true)
-                            .connectTimeout(20, TimeUnit.SECONDS)
-                            .readTimeout(20, TimeUnit.SECONDS)
+                            .connectTimeout(30, TimeUnit.SECONDS)
+                            .readTimeout(30, TimeUnit.SECONDS)
                             .writeTimeout(30, TimeUnit.SECONDS)
                             .build();
                 }

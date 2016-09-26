@@ -1,10 +1,10 @@
 package com.ldxx.drug.api;
 
 
-
 import com.ldxx.drug.model.bean.MenuDetail;
 import com.ldxx.drug.model.bean.MenuList;
 import com.ldxx.drug.model.bean.ResultBean;
+import com.ldxx.drug.model.bean.Store;
 
 import java.util.List;
 
@@ -24,4 +24,9 @@ public interface MenuApi {
 
     @GET("/tngou/drug/show")
     Observable<MenuDetail> getDetail(@Query("id") String page);
+
+
+    @GET(" /tngou/store/location?id=0&rows=10")
+    Observable<ResultBean<List<Store>>> getAroundStores(@Query("page") int page,
+                                                    @Query("x") double x, @Query("y") double y);
 }
