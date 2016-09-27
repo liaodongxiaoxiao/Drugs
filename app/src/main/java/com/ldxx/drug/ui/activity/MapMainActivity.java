@@ -105,7 +105,6 @@ public class MapMainActivity extends BaseActivity implements MapMainView {
         map.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                //map.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(),15.4f));
                 return false;
             }
