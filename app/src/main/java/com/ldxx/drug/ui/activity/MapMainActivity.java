@@ -6,8 +6,10 @@ import android.util.Log;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.maps2d.overlay.PoiOverlay;
 import com.amap.api.services.core.PoiItem;
@@ -46,6 +48,8 @@ public class MapMainActivity extends BaseActivity implements MapMainView {
         ButterKnife.bind(this);
         mapView.onCreate(savedInstanceState);
         map = mapView.getMap();
+        UiSettings settings =map.getUiSettings();
+        settings.setZoomControlsEnabled(false);
 
         presenter.initLocation();
     }
@@ -98,6 +102,14 @@ public class MapMainActivity extends BaseActivity implements MapMainView {
         poiOverlay.removeFromMap();
         poiOverlay.addToMap();
         poiOverlay.zoomToSpan();
+        map.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                //map.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(),15.4f));
+                return false;
+            }
+        });
         //map.clear();
         /*LatLngBounds.Builder builder = new LatLngBounds.Builder();
         builder.include(location);

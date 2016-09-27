@@ -88,7 +88,7 @@ public class MapMainPresenterImpl implements MapMainPresenter {
         locationClient.startLocation();
     }
 
-    private void getAroundStores(LatLng latLng) {
+    private void getAroundStores(final LatLng latLng) {
         final RegeocodeQuery rq = new RegeocodeQuery(new LatLonPoint(latLng.latitude, latLng.longitude)
                 , 10, "autonavi");
         final GeocodeSearch gs = new GeocodeSearch(context);
@@ -101,6 +101,9 @@ public class MapMainPresenterImpl implements MapMainPresenter {
                     Log.e(TAG, "RegeocodeAddress: " + address.getCity() + " " + address.getCityCode());
                     final PoiSearch.Query query = new PoiSearch.Query("药房|药店", null, address.getCityCode());
                     final PoiSearch poiSearch = new PoiSearch(context, query);
+                    query.setPageSize(10);
+                    poiSearch.setBound(new PoiSearch.SearchBound(new LatLonPoint(latLng.latitude,
+                            latLng.longitude), 2000));
                     poiSearch.setOnPoiSearchListener(new PoiSearch.OnPoiSearchListener() {
                         @Override
                         public void onPoiSearched(PoiResult result, int i) {
